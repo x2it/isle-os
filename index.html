@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>屿 IsleOS</title>
+<meta name="description" content="屿 IsleOS —— 一座装在浏览器里的小岛，完整而安静的桌面系统。">
+<meta name="theme-color" content="#0d3a52">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" type="image/png" href="icons/favicon-256.png">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="屿">
+<link rel="stylesheet" href="css/style.css?v=4.4">
+</head>
+<body>
+
+<div id="wallpaper" class="wp-0" aria-hidden="true"></div>
+
+<!-- 开机画面 -->
+<div id="boot">
+  <div class="boot-logo">
+    <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="15.2" cy="6.6" r="2.3" fill="#fff"/><path d="M3 17.2c2.6-4.4 6-6.6 9-6.6s6.4 2.2 9 6.6c-2.8 1.6-5.8 2.4-9 2.4s-6.2-.8-9-2.4Z" fill="#fff"/></svg>
+  </div>
+  <div class="boot-mid">
+    <div class="boot-name">屿</div>
+    <div class="boot-bar"><i></i></div>
+    <div class="boot-sub" id="bootMsg">正在涨潮…</div>
+  </div>
+  <div class="boot-ver" id="bootVer">ISLEOS</div>
+</div>
+
+<!-- 顶栏 -->
+<header id="topbar">
+  <div class="tb-left">
+    <div class="logo-mini">
+      <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="15.2" cy="6.6" r="2.3" fill="#fff"/><path d="M3 17.2c2.6-4.4 6-6.6 9-6.6s6.4 2.2 9 6.6c-2.8 1.6-5.8 2.4-9 2.4s-6.2-.8-9-2.4Z" fill="#fff"/></svg>
+      <span class="menu-item keep" data-menu="system">屿</span>
+    </div>
+    <span class="menu-item" data-menu="file">文件</span>
+    <span class="menu-item" data-menu="display">显示</span>
+    <span class="menu-item" data-menu="go">前往</span>
+    <span class="menu-item" data-menu="help">帮助</span>
+  </div>
+  <div class="spacer"></div>
+  <div class="tb-right">
+    <span id="tbNet" class="tb-net" title="网络"></span>
+    <span id="tbBattery" hidden></span>
+    <button id="tbBell" class="tb-bell" title="通知" aria-label="通知">
+      <svg viewBox="0 0 24 24" width="15" height="15" fill="none" aria-hidden="true"><path d="M12 3a6 6 0 0 0-6 6v3.5L4.5 16h15L18 12.5V9a6 6 0 0 0-6-6Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M10 18.5a2 2 0 0 0 4 0" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+      <i id="bellBadge" hidden></i>
+    </button>
+    <span id="tbDate">—</span>
+    <span id="tbTime">—</span>
+  </div>
+</header>
+
+<!-- 下拉 / 右键菜单 -->
+<div id="menuRoot" class="menu-pop" hidden></div>
+
+<!-- 通知中心 -->
+<aside id="notifyPanel" hidden>
+  <div class="np-head">
+    <b>通知</b>
+    <button id="npClear" type="button">清除</button>
+  </div>
+  <div id="npList" class="np-list"></div>
+</aside>
+
+<!-- 桌面 -->
+<main id="desktop" aria-label="桌面"></main>
+
+<!-- Dock -->
+<nav id="dock" aria-label="Dock"></nav>
+
+<!-- 对话框 -->
+<div id="modalRoot" hidden>
+  <div id="modalMask"></div>
+  <div id="modalCard" role="dialog" aria-modal="true"></div>
+</div>
+
+<!-- 全局提示 -->
+<div id="toast" role="status"></div>
+
+<!-- 锁定屏 -->
+<div id="lockLayer" hidden>
+  <div class="lock-inner">
+    <div class="lock-time" id="lockTime">—</div>
+    <div class="lock-date" id="lockDate"></div>
+    <div class="lock-greet" id="lockGreet"></div>
+    <div class="lock-hint">点按任意位置解锁</div>
+  </div>
+</div>
+
+<!-- 初始化向导 -->
+<div id="welcomeLayer" hidden>
+  <div class="wl-card">
+    <div class="wl-logo">
+      <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="15.2" cy="6.6" r="2.3" fill="#fff"/><path d="M3 17.2c2.6-4.4 6-6.6 9-6.6s6.4 2.2 9 6.6c-2.8 1.6-5.8 2.4-9 2.4s-6.2-.8-9-2.4Z" fill="#fff"/></svg>
+    </div>
+    <h1>欢迎来到屿</h1>
+    <p class="wl-sub">一座属于你的小岛，几分钟即可安顿好。</p>
+    <div class="wl-step" data-step="1">
+      <label class="wl-label">怎么称呼你？（可留空）</label>
+      <input id="wlName" maxlength="16" placeholder="你的名字" autocomplete="off">
+    </div>
+    <div class="wl-step" data-step="2">
+      <div class="wl-label">外观</div>
+      <div class="wl-choices" id="wlTheme">
+        <button type="button" data-v="light"><span class="wl-swatch wl-light"></span>浅色</button>
+        <button type="button" data-v="dark"><span class="wl-swatch wl-dark"></span>深色</button>
+        <button type="button" data-v="auto"><span class="wl-swatch wl-auto"></span>自动</button>
+      </div>
+    </div>
+    <div class="wl-step" data-step="3">
+      <div class="wl-label">挑一张壁纸</div>
+      <div class="wl-walls" id="wlWalls"></div>
+    </div>
+    <div class="wl-actions">
+      <button class="btn ghost" id="wlSkip">跳过</button>
+      <button class="btn" id="wlDone">上岛</button>
+    </div>
+  </div>
+</div>
+
+<!-- 关机画面 -->
+<div id="powerLayer" hidden>
+  <button id="powerBtn" type="button" title="开机" aria-label="开机">
+    <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 3v8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M7.2 6.2a7.5 7.5 0 1 0 9.6 0" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+  </button>
+  <div class="power-text">已关机 · 点按电源开机</div>
+</div>
+
+<script src="js/vfs.js?v=4.4"></script>
+<script src="js/core.js?v=4.4"></script>
+<script src="js/wm.js?v=4.4"></script>
+<script src="js/shell.js?v=4.4"></script>
+<script src="js/apps-a.js?v=4.4"></script>
+<script src="js/apps-b.js?v=4.4"></script>
+<script src="js/apps-c.js?v=4.4"></script>
+<script src="js/main.js?v=4.4"></script>
+</body>
+</html>
