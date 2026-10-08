@@ -1,8 +1,12 @@
-# 屿 IsleOS
+# 屿 · IsleOS
 
 **一座装在浏览器里的小岛 —— 一个零后端、可离线、能对话的实验性 Web 桌面系统。**
 
 纯前端实现，无需服务器、无需注册、无需安装。打开网页即是一座完整的小岛：窗口、文件系统、终端、应用一应俱全，数据只属于你自己的设备。
+
+**IsleOS** is an experimental, serverless, offline-capable Web desktop that lives entirely in your browser — windows, an OPFS file system, a real shell and a dock, plus a conversational AI agent that can open apps, read/write files and change the wallpaper for you. Zero backend, zero install, zero data leaves your device.
+
+<img src="https://raw.githubusercontent.com/x2it/isle-os/main/banner.png" alt="屿 · IsleOS" width="100%">
 
 > 🌐 在线体验：https://os.app.workbuddy.host
 
@@ -17,21 +21,23 @@
 
 它不模仿任何特定系统，而试图回答一个问题：**如果一个 AI Agent 需要一个属于自己的操作界面，它会长什么样？**
 
+> IsleOS is both a lightweight in-browser desktop (windows, dock, files, terminal) and an experimental AI interface: ask in natural language and it opens apps, reads/writes files, switches wallpapers and locks the screen.
+
 ---
 
 ## 特性
 
 | 模块 | 说明 |
 |---|---|
-| **智能体** | 本地指令模式开箱即用（开应用 / 换壁纸 / 读写文件 / 发通知）；填入任意 OpenAI 兼容接口即可升级为能自由对话并调用系统工具的云端智能体 |
-| **文件系统** | 基于 OPFS（Origin Private File System），真实持久化。刷新、关机重开，文件都还在 |
-| **终端** | 真实 Shell：`ls cd pwd mkdir touch cat echo rm cp mv tree du df neofetch wall theme open` |
-| **浏览器** | 内嵌真实网页访问，可搜索、可导航 |
-| **生命周期** | 开机动画、锁屏（大时钟 + 时段问候）、关机 / 重启、首启向导、恢复出厂 |
-| **数据迁移** | 一键导出 JSON 备份（含全部文件与设置），换个浏览器 / 设备原样还原 |
-| **PWA** | 可安装到主屏幕，全屏运行，支持离线访问 |
-| **移动端** | 响应式布局，软键盘自适应，触摸目标优化 |
-| **主题** | 浅色 / 深色 / 跟随系统，5 套渐变壁纸，可自定义图片壁纸 |
+| **智能体 / Agent** | 本地指令模式开箱即用（开应用 / 换壁纸 / 读写文件 / 发通知）；填入任意 OpenAI 兼容接口即可升级为能自由对话并调用系统工具的云端智能体 · Local command mode out of the box; plug in any OpenAI-compatible endpoint to upgrade to a cloud agent that talks and calls system tools |
+| **文件系统 / Filesystem** | 基于 OPFS（Origin Private File System），真实持久化。刷新、关机重开，文件都还在 · Real persistence on OPFS — your files survive refresh and reboot |
+| **终端 / Terminal** | 真实 Shell：`ls cd pwd mkdir touch cat echo rm cp mv tree du df neofetch wall theme open` · A real shell with the commands above |
+| **浏览器 / Browser** | 内嵌真实网页访问，可搜索、可导航 · Built-in web view with search and navigation |
+| **生命周期 / Lifecycle** | 开机动画、锁屏（大时钟 + 时段问候）、关机 / 重启、首启向导、恢复出厂 · Boot animation, lock screen, shutdown/reboot, first-run wizard, factory reset |
+| **数据迁移 / Backup** | 一键导出 JSON 备份（含全部文件与设置），换个浏览器 / 设备原样还原 · One-click JSON backup & restore across browsers/devices |
+| **PWA** | 可安装到主屏幕，全屏运行，支持离线访问 · Installable to home screen, fullscreen, offline-ready |
+| **移动端 / Mobile** | 响应式布局，软键盘自适应，触摸目标优化 · Responsive, soft-keyboard aware, touch-optimized |
+| **主题 / Themes** | 浅色 / 深色 / 跟随系统，5 套渐变壁纸，可自定义图片壁纸 · Light/dark/system themes, 5 gradient wallpapers, custom images |
 
 ---
 
@@ -89,6 +95,8 @@ python3 -m http.server 8080
 - 智能体的对话历史与 API 密钥只保存在本机，不会上传到本项目之外的任何地方；
 - 换浏览器 / 换设备时数据不会自动跟随（浏览器安全隔离所限），请用「设置 → 备份与迁移」导出 JSON 再还原。
 
+> All data stays in your browser — there is no server. Files persist in OPFS, settings in `localStorage`; the agent's chat history and API key never leave your device.
+
 ---
 
 ## 开发
@@ -139,4 +147,4 @@ N.apps.register({
 
 ## 许可证
 
-[MIT](LICENSE) © 2026 屿 IsleOS contributors
+[MIT](LICENSE) © 2026 知行工作室 Zhixing Studio · [https://w3b.pub/](https://w3b.pub/) · support@w3b.pub
