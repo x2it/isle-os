@@ -8,6 +8,8 @@
 
 <img src="https://raw.githubusercontent.com/x2it/isle-os/main/banner.png" alt="屿 · IsleOS" width="100%">
 
+> **当前版本 / Current version：4.4**（源自 [`js/core.js`](js/core.js) 的 `N.VERSION`）
+
 > 🌐 在线体验：https://os.app.workbuddy.host
 
 ---
